@@ -1,4 +1,9 @@
 logs/
 node_modules/
 pids/
+config/
+
+.gitignore
+.project
+.DS_Store
 
