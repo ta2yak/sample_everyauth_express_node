@@ -3,4 +3,17 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body!= body
+  body
+    #header
+      - if (!everyauth.loggedIn)
+        #github-login
+            a(href='/auth/github', style='border: 0px')
+              img(style='border: 0px', src='http://github.com/intridea/authbuttons/raw/master/png/github_64.png')
+      - else
+        - if (everyauth.github)
+          p Welcome to #{everyauth.github.user.login}
+          a(href='/logout') Logout
+      
+    #content
+      != body
+

@@ -3,10 +3,11 @@ require.paths.unshift('./node_modules');
 /**
  * Module dependencies.
  */
+
 var express = require('express')
-    everyauth = require('everyauth'),
-    git_config = require(__dirname + "/config/github"),
-    session_config = require(__dirname + "/config/session");
+   ,everyauth = require('everyauth')
+   ,git_config = require(__dirname + "/config/github")
+   ,session_config = require(__dirname + "/config/session");
 
 /**
  * OAuth Setting
@@ -20,8 +21,7 @@ everyauth
     .callbackPath('/auth/github/callback')
     .scope('public_repo')
     .findOrCreateUser( function (session, accessToken, accessTokenExtra, githubUserMetadata) {
-      // find or create user logic goes here
-      return {name:githubUserMetadata.user}
+      return {name:githubUserMetadata.user};
     })
     .redirectPath('/auth/github/loginhook');
 

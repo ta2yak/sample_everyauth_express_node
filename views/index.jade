@@ -1,12 +1,1 @@
 h1= title
-
-- if (!everyauth.loggedIn)
-  #github-login
-      a(href='/auth/github', style='border: 0px')
-        img(style='border: 0px', src='http://github.com/intridea/authbuttons/raw/master/png/github_64.png')
-- else
-  - if (everyauth.github)
-    p Welcome to #{JSON.stringify(everyauth.github.user)}
-
-  h3
-    a(href='/logout') Logout
