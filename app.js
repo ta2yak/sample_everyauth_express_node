@@ -89,6 +89,7 @@ app.get('/', function(req, res){
 app.get('/project', function(req, res){
   if(!everyauth.user){
      res.redirect('/');
+     return;
   }
   
   res.render('project_new', {
