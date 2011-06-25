@@ -86,6 +86,12 @@ app.get('/', function(req, res){
   });
 });
 
+app.get('/project', function(req, res){
+  res.render('project_new', {
+  });
+});
+
+
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
   console.log("Listening on " + port);
