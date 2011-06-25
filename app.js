@@ -6,8 +6,25 @@ require.paths.unshift('./node_modules');
 
 var express = require('express')
    ,everyauth = require('everyauth')
+   ,mongoose = require('mongoose').Mongoose
    ,git_config = require("./config/github")
    ,session_config = require("./config/session");
+
+console.log(process.env.MONGOHQ_URL);
+
+var db = mongoose.connect(process.env.MONGOHQ_URL);
+mongoose.model('user', {
+  properties: [
+    'name', 'age', 'created_at',
+  ],
+  methods: {
+    save: function (fn) {
+      this.created_at = new Date();
+      this.__super__(fn);
+    }
+  }
+});
+module.exports = db.model('user');
 
 /**
  * OAuth Setting
