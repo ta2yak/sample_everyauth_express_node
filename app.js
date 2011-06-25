@@ -34,7 +34,7 @@ everyauth
     .callbackPath(git_config.callbackPath)
     .scope('public_repo')
     .findOrCreateUser( function (session, accessToken, accessTokenExtra, githubUserMetadata) {
-      var promise = new Promise();
+      var promise = new everyauth.Promise();
       var User = mongoose.model('User');
       User.findOne({uid: githubUserMetadata.id}, function (err, foundUser){
         if(err) return promise.fail(err);
