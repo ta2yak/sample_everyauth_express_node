@@ -87,6 +87,10 @@ app.get('/', function(req, res){
 });
 
 app.get('/project', function(req, res){
+  if(!everyauth.user){
+     res.redirect('/');
+  }
+  
   res.render('project_new', {
     title: 'Designer Request' 
   });
