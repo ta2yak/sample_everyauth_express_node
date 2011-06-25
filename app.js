@@ -14,11 +14,11 @@ var express = require('express')
  */
 everyauth
   .github
-    .myHostname('http://geek_meets_designer.cloudfoundry.com')
+    .myHostname(git_config.host)
     .appId(git_config.appId)
     .appSecret(git_config.appSecret)
-    .entryPath('/auth/github')
-    .callbackPath('/auth/github/callback')
+    .entryPath(git_config.entryPath)
+    .callbackPath(git_config.callbackPath)
     .scope('public_repo')
     .findOrCreateUser( function (session, accessToken, accessTokenExtra, githubUserMetadata) {
       return {name:githubUserMetadata.user};
