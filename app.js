@@ -6,8 +6,8 @@ require.paths.unshift('./node_modules');
 
 var express = require('express')
    ,everyauth = require('everyauth')
-   ,git_config = require(__dirname + "/config/github")
-   ,session_config = require(__dirname + "/config/session");
+   ,git_config = require("./config/github")
+   ,session_config = require("./config/session");
 
 /**
  * OAuth Setting
