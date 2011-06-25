@@ -67,8 +67,8 @@ app.get('/auth/github/loginhook', function(req, res){
 
 
 //var host = process.env.VCAP_APP_HOST || 'localhost';
-//var port = process.env.VMC_APP_PORT || 3000;
+var port = process.env.port || 3000;
 
-app.listen(3000);
+app.listen(port);
 //app.listen(port, host);
 //console.log('application run !! http://' + host + ':' + port );
