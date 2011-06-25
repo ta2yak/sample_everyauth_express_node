@@ -1,7 +1,6 @@
 logs/
 node_modules/
 pid/
-
 .gitignore
 .project
 .DS_Store
