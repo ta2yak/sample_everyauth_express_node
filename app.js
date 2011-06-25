@@ -11,15 +11,12 @@ var express = require('express')
    ,session_config = require("./config/session");
 
 var db = mongoose.connect(process.env.MONGOHQ_URL);
-// Default Schemaを取得
 var Schema = mongoose.Schema;
-// Defaultのスキーマから新しいスキーマを定義
 var UserSchema = new Schema({
     uid: String
   , name: String
   , created_at: { type: Date, default: Date.now }
 });
-// モデル化。model('[登録名]', '定義したスキーマクラス')
 mongoose.model('User', UserSchema);
 
 /**
@@ -78,7 +75,6 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-
 // Routes
 app.get('/', function(req, res){
   res.render('index', {
@@ -86,21 +82,7 @@ app.get('/', function(req, res){
   });
 });
 
-app.get('/project', function(req, res){
-  if(!req.loggedIn){
-     res.redirect('/');
-     return;
-  }
-  
-  res.render('project_new', {
-    title: 'Designer Request' 
-  });
-});
-
-
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
   console.log("Listening on " + port);
 });
-
-var io = require('socket.io').listen(app);

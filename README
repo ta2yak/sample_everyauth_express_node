@@ -1,0 +1,2 @@
+node.js + express + mongoose + everyouth のサンプル
+Herokuにて動作するようになっています(要追加: MongoHQ addin:free)

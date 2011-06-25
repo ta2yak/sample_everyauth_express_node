@@ -9,6 +9,5 @@
     , "connect":"1.5.1"
     , "oauth":"0.9.0"
     , "mongoose":"1.4.0"
-    , "socket.io":"0.7.2"
   }
 }
