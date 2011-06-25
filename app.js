@@ -38,7 +38,6 @@ everyauth
       var User = mongoose.model('User');
       User.findOne({uid: githubUserMetadata.id}, function (err, foundUser){
         if(err) return promise.fail(err);
-        
         if(foundUser) return promise.fulfill(foundUser);
 
         var user = new User();
@@ -47,6 +46,8 @@ everyauth
         user.save();
         return promise.fulfill(user);
       });
+
+      return promise;
     })
     .redirectPath('/');
     
