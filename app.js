@@ -37,7 +37,8 @@ everyauth
     .callbackPath(git_config.callbackPath)
     .scope('public_repo')
     .findOrCreateUser( function (session, accessToken, accessTokenExtra, githubUserMetadata) {
-      console.log(githubUserMetadata);
+      console.log(githubUserMetadata.user.id);
+      console.log(githubUserMetadata.user.login);
       return {name:githubUserMetadata.user};
     })
     .redirectPath('/auth/github/loginhook');
