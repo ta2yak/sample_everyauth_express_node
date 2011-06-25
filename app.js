@@ -24,6 +24,7 @@ everyauth
       return {name:githubUserMetadata.user};
     })
     .redirectPath('/auth/github/loginhook');
+    
 
 var app = module.exports = express.createServer(
     express.bodyParser()

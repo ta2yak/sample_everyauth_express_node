@@ -1,5 +1,6 @@
 logs/
 node_modules/
+config/
 pid/
 .gitignore
 .project
