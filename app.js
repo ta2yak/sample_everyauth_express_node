@@ -6,25 +6,24 @@ require.paths.unshift('./node_modules');
 
 var express = require('express')
    ,everyauth = require('everyauth')
-   ,mongoose = require('mongoose').Mongoose
+   ,mongoose = require('mongoose')
    ,git_config = require("./config/github")
    ,session_config = require("./config/session");
 
-console.log(process.env.MONGOHQ_URL);
-
 var db = mongoose.connect(process.env.MONGOHQ_URL);
-mongoose.model('user', {
-  properties: [
-    'name', 'age', 'created_at',
-  ],
-  methods: {
-    save: function (fn) {
-      this.created_at = new Date();
-      this.__super__(fn);
-    }
+// Default Schemaを取得
+var Schema = mongoose.Schema;
+// Defaultのスキーマから新しいスキーマを定義
+var UserSchema = new Schema({
+  name: String,
+  metadata: {
+    votes: Number,
+    favs: Number
   }
 });
-module.exports = db.model('user');
+
+// モデル化。model('[登録名]', '定義したスキーマクラス')
+mongoose.model('User', UserSchema);
 
 /**
  * OAuth Setting
@@ -38,6 +37,7 @@ everyauth
     .callbackPath(git_config.callbackPath)
     .scope('public_repo')
     .findOrCreateUser( function (session, accessToken, accessTokenExtra, githubUserMetadata) {
+      console.log(githubUserMetadata);
       return {name:githubUserMetadata.user};
     })
     .redirectPath('/auth/github/loginhook');
