@@ -15,13 +15,10 @@ var db = mongoose.connect(process.env.MONGOHQ_URL);
 var Schema = mongoose.Schema;
 // Defaultのスキーマから新しいスキーマを定義
 var UserSchema = new Schema({
-  name: String,
-  metadata: {
-    votes: Number,
-    favs: Number
-  }
+    uid: String
+  , name: String
+  , created_at: { type: Date, default: Date.now }
 });
-
 // モデル化。model('[登録名]', '定義したスキーマクラス')
 mongoose.model('User', UserSchema);
 
@@ -37,11 +34,24 @@ everyauth
     .callbackPath(git_config.callbackPath)
     .scope('public_repo')
     .findOrCreateUser( function (session, accessToken, accessTokenExtra, githubUserMetadata) {
-      console.log(githubUserMetadata.id);
-      console.log(githubUserMetadata.login);
-      return {name:githubUserMetadata.user};
+      var User = mongoose.model('User');
+      User.findOne({uid: githubUserMetadata.id}, function (err, doc){
+        if(err){
+          console.log(err);
+          return
+        }
+        
+        if(doc){
+          console.log(doc);
+        }else{
+          var user = new User();
+          user.uid = githubUserMetadata.id;
+          user.name = githubUserMetadata.login;
+          user.save();
+        }
+      });
     })
-    .redirectPath('/auth/github/loginhook');
+    .redirectPath('/');
     
 
 var app = module.exports = express.createServer(
@@ -77,13 +87,6 @@ app.get('/', function(req, res){
     title: 'Express' 
   });
 });
-
-app.get('/auth/github/loginhook', function(req, res){
-  console.log(req.loggedIn);
-  console.log(req.user);
-  res.redirect('/');
-});
-
 
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
