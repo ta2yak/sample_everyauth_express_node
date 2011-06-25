@@ -88,6 +88,7 @@ app.get('/', function(req, res){
 
 app.get('/project', function(req, res){
   res.render('project_new', {
+    title: 'Designer Request' 
   });
 });
 
